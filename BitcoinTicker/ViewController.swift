@@ -15,7 +15,9 @@ class ViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSour
     let baseURL = "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC"
     let currencyArray = ["AUD", "BRL","CAD","CNY","EUR","GBP","HKD","IDR","ILS","INR","JPY","MXN","NOK","NZD","PLN","RON","RUB","SEK","SGD","USD","ZAR"]
     var finalURL = ""
+    let currencySymbolArray = ["$", "R$", "$", "¥", "€", "£", "$", "Rp", "₪", "₹", "¥", "$", "kr", "$", "zł", "lei", "₽", "kr", "$", "$", "R"]
     
+    var currencySelected = ""
     //Pre-setup IBOutlets
     @IBOutlet weak var bitcoinPriceLabel: UILabel!
     @IBOutlet weak var currencyPicker: UIPickerView!
@@ -27,8 +29,7 @@ class ViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSour
         
         currencyPicker.delegate = self
         currencyPicker.dataSource = self
-        finalURL = baseURL + currencyArray[0]
-        getPriceData(url: finalURL)
+        
        
     }
 
@@ -52,6 +53,7 @@ class ViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSour
         
         print(currencyArray[row])
         finalURL = baseURL + currencyArray[row]
+        currencySelected = currencySymbolArray[row]
         print(finalURL)
         getPriceData(url: finalURL)
     }
@@ -94,7 +96,7 @@ class ViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSour
             
             print("THIS IS PRICE RESULT")
             print(priceResult)
-            bitcoinPriceLabel.text = String(priceResult)
+            bitcoinPriceLabel.text = "\(currencySelected)\(priceResult)"
         
       
         }
